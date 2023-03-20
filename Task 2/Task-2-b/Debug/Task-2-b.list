@@ -1,0 +1,445 @@
+
+Task-2-b.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   00000194  08000000  08000000  00010000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         000001a8  08000194  08000194  00010194  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       00000000  0800033c  0800033c  00020044  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .ARM.extab    00000000  0800033c  0800033c  00020044  2**0
+                  CONTENTS
+  4 .ARM          00000000  0800033c  0800033c  00020044  2**0
+                  CONTENTS
+  5 .preinit_array 00000000  0800033c  0800033c  00020044  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .init_array   00000004  0800033c  0800033c  0001033c  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  7 .fini_array   00000004  08000340  08000340  00010340  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  8 .data         00000044  20000000  08000344  00020000  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .ccmram       00000000  10000000  10000000  00020044  2**0
+                  CONTENTS
+ 10 .bss          0000001c  20000044  20000044  00020044  2**2
+                  ALLOC
+ 11 ._user_heap_stack 00000600  20000060  20000060  00020044  2**0
+                  ALLOC
+ 12 .ARM.attributes 00000030  00000000  00000000  00020044  2**0
+                  CONTENTS, READONLY
+ 13 .debug_line   000004b1  00000000  00000000  00020074  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 14 .debug_info   000000dc  00000000  00000000  00020525  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 15 .debug_abbrev 00000087  00000000  00000000  00020601  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 16 .debug_aranges 00000068  00000000  00000000  00020688  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 17 .debug_str    00003afb  00000000  00000000  000206f0  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 18 .debug_ranges 00000030  00000000  00000000  000241f0  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 19 .debug_macro  00000f34  00000000  00000000  00024220  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 20 .comment      00000050  00000000  00000000  00025154  2**0
+                  CONTENTS, READONLY
+ 21 .debug_frame  00000058  00000000  00000000  000251a4  2**2
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+
+Disassembly of section .text:
+
+08000194 <__do_global_dtors_aux>:
+ 8000194:	b510      	push	{r4, lr}
+ 8000196:	4c05      	ldr	r4, [pc, #20]	; (80001ac <__do_global_dtors_aux+0x18>)
+ 8000198:	7823      	ldrb	r3, [r4, #0]
+ 800019a:	b933      	cbnz	r3, 80001aa <__do_global_dtors_aux+0x16>
+ 800019c:	4b04      	ldr	r3, [pc, #16]	; (80001b0 <__do_global_dtors_aux+0x1c>)
+ 800019e:	b113      	cbz	r3, 80001a6 <__do_global_dtors_aux+0x12>
+ 80001a0:	4804      	ldr	r0, [pc, #16]	; (80001b4 <__do_global_dtors_aux+0x20>)
+ 80001a2:	f3af 8000 	nop.w
+ 80001a6:	2301      	movs	r3, #1
+ 80001a8:	7023      	strb	r3, [r4, #0]
+ 80001aa:	bd10      	pop	{r4, pc}
+ 80001ac:	20000044 	.word	0x20000044
+ 80001b0:	00000000 	.word	0x00000000
+ 80001b4:	08000324 	.word	0x08000324
+
+080001b8 <frame_dummy>:
+ 80001b8:	b508      	push	{r3, lr}
+ 80001ba:	4b03      	ldr	r3, [pc, #12]	; (80001c8 <frame_dummy+0x10>)
+ 80001bc:	b11b      	cbz	r3, 80001c6 <frame_dummy+0xe>
+ 80001be:	4903      	ldr	r1, [pc, #12]	; (80001cc <frame_dummy+0x14>)
+ 80001c0:	4803      	ldr	r0, [pc, #12]	; (80001d0 <frame_dummy+0x18>)
+ 80001c2:	f3af 8000 	nop.w
+ 80001c6:	bd08      	pop	{r3, pc}
+ 80001c8:	00000000 	.word	0x00000000
+ 80001cc:	20000048 	.word	0x20000048
+ 80001d0:	08000324 	.word	0x08000324
+
+080001d4 <assembly_function>:
+
+.text
+@define code
+assembly_function:
+
+	LDR R3, =led_numbers			@load address for led numbers that are outputted through GPIO to LEDs
+ 80001d4:	4b23      	ldr	r3, [pc, #140]	; (8000264 <initialise_discovery_board+0xe>)
+
+	LDR R4, =test_string			@load address for the string
+ 80001d6:	4c24      	ldr	r4, [pc, #144]	; (8000268 <initialise_discovery_board+0x12>)
+	MOV R2, #0x0					@start of iteration of test string
+ 80001d8:	f04f 0200 	mov.w	r2, #0
+
+	LDR R1, =map_array				@load address for map into R1
+ 80001dc:	4923      	ldr	r1, [pc, #140]	; (800026c <initialise_discovery_board+0x16>)
+	MOV R9, #0x0					@start of iteration of map_array
+ 80001de:	f04f 0900 	mov.w	r9, #0
+
+	@ Branch with link to set the clocks for the I/O and UART
+	BL enable_peripheral_clocks
+ 80001e2:	f000 f82f 	bl	8000244 <enable_peripheral_clocks>
+
+	@ Once the clocks are started, need to initialise the discovery board I/O
+	BL initialise_discovery_board
+ 80001e6:	f000 f836 	bl	8000256 <initialise_discovery_board>
+
+080001ea <get_letter>:
+
+get_letter:
+
+	LDR R10, =GPIOE  				@ load the address of the GPIOE register into R0
+ 80001ea:	f8df a084 	ldr.w	sl, [pc, #132]	; 8000270 <initialise_discovery_board+0x1a>
+
+	MOV R9, #0x0					@reset and initialise offset of map array
+ 80001ee:	f04f 0900 	mov.w	r9, #0
+
+	LDRB R5, [R4, R2]				@load the letter of the test string
+ 80001f2:	5ca5      	ldrb	r5, [r4, r2]
+
+080001f4 <check_uppercase_and_lower_case>:
+
+
+check_uppercase_and_lower_case:
+
+	LDRB R6, [R1, R9]				@load letter in map array
+ 80001f4:	f811 6009 	ldrb.w	r6, [r1, r9]
+
+	CMP R5, R6						@checking the test string against the letter array (lower case)
+ 80001f8:	42b5      	cmp	r5, r6
+
+	BEQ load_map_lower_case			@it is a valid ASCII letter
+ 80001fa:	d00e      	beq.n	800021a <load_map_lower_case>
+
+	SUB R6, R6, 0x20				@making it uppercase
+ 80001fc:	f1a6 0620 	sub.w	r6, r6, #32
+
+	CMP R5, R6						@checking the test string against the letter array (upper case)
+ 8000200:	42b5      	cmp	r5, r6
+
+	BEQ load_map_upper_case			@it is a valid ASCII letter
+ 8000202:	d00f      	beq.n	8000224 <load_map_upper_case>
+
+	ADD R9, R9, 0x1					@next letter in our map array
+ 8000204:	f109 0901 	add.w	r9, r9, #1
+
+	CMP R9, 0x19					@if it reaches the end of our test array then it is not a valid ascii character
+ 8000208:	f1b9 0f19 	cmp.w	r9, #25
+
+	BEQ not_valid_ascii
+ 800020c:	d000      	beq.n	8000210 <not_valid_ascii>
+
+	B check_uppercase_and_lower_case			@keep iterating through map until we find the letter that matches the map
+ 800020e:	e7f1      	b.n	80001f4 <check_uppercase_and_lower_case>
+
+08000210 <not_valid_ascii>:
+
+not_valid_ascii:
+
+	MOV R8, #0b11111111				@light up all the LEDs
+ 8000210:	f04f 08ff 	mov.w	r8, #255	; 0xff
+
+	ADD R2, R2, 0x1					@move to next letter
+ 8000214:	f102 0201 	add.w	r2, r2, #1
+
+	B light_up_letter				@start process again
+ 8000218:	e00b      	b.n	8000232 <light_up_letter>
+
+0800021a <load_map_lower_case>:
+
+load_map_lower_case:
+
+	LDRB R8, [R3, R9]				@into R8 the mapped value i.e. turining it into a number
+ 800021a:	f813 8009 	ldrb.w	r8, [r3, r9]
+
+	ADD R2, R2, 0x1					@iterate into the next letter in the test string
+ 800021e:	f102 0201 	add.w	r2, r2, #1
+
+	B light_up_letter					@start process again
+ 8000222:	e006      	b.n	8000232 <light_up_letter>
+
+08000224 <load_map_upper_case>:
+
+load_map_upper_case:
+
+	LDRB R8, [R3, R9]
+ 8000224:	f813 8009 	ldrb.w	r8, [r3, r9]
+
+	ADD R8, R8, 0x19				@add by 25 in hex for a uppercase value, a = 0, A = 25 etc.
+ 8000228:	f108 0819 	add.w	r8, r8, #25
+
+	ADD R2, R2, 0x1					@iterate to next letter in the test string
+ 800022c:	f102 0201 	add.w	r2, r2, #1
+
+	B light_up_letter					@start process again
+ 8000230:	e7ff      	b.n	8000232 <light_up_letter>
+
+08000232 <light_up_letter>:
+
+light_up_letter:
+
+
+	STRB R8, [R10, #ODR + 1]   		@ store this to the second byte of the ODR (bits 8-15)
+ 8000232:	f88a 8015 	strb.w	r8, [sl, #21]
+
+	BL delay_function
+ 8000236:	f000 f801 	bl	800023c <delay_function>
+
+	B get_letter
+ 800023a:	e7d6      	b.n	80001ea <get_letter>
+
+0800023c <delay_function>:
+
+
+@ think about how you could make a delay such that the LEDs blink at a certain frequency
+delay_function:
+	LDR R6, =0x006FF00F
+ 800023c:	4e0d      	ldr	r6, [pc, #52]	; (8000274 <initialise_discovery_board+0x1e>)
+
+0800023e <not_finished_yet>:
+
+	@ we continue to subtract one from R6 while the result is not zero,
+	@ then return to where the delay_function was called
+not_finished_yet:
+	SUBS R6, 0x01
+ 800023e:	3e01      	subs	r6, #1
+	BNE not_finished_yet
+ 8000240:	d1fd      	bne.n	800023e <not_finished_yet>
+
+	BX LR @ return from function call
+ 8000242:	4770      	bx	lr
+
+08000244 <enable_peripheral_clocks>:
+
+
+@ enable the clocks for peripherals (GPIOA, C and E)
+enable_peripheral_clocks:
+	LDR R10, =RCC  @ load the address of the RCC address boundary (for enabling the IO clock)
+ 8000244:	f8df a030 	ldr.w	sl, [pc, #48]	; 8000278 <initialise_discovery_board+0x22>
+	LDR R11, [R10, #AHBENR]  @ load the current value of the peripheral clock registers
+ 8000248:	f8da b014 	ldr.w	fp, [sl, #20]
+	ORR R11, 1 << GPIOA_ENABLE | 1 << GPIOC_ENABLE | 1 << GPIOE_ENABLE  @ 21st bit is enable GPIOE clock, 17 is GPIOA clock
+ 800024c:	f44b 1b28 	orr.w	fp, fp, #2752512	; 0x2a0000
+	STR R11, [R10, #AHBENR]  @ store the modified register back to the submodule
+ 8000250:	f8ca b014 	str.w	fp, [sl, #20]
+	BX LR @ return from function call
+ 8000254:	4770      	bx	lr
+
+08000256 <initialise_discovery_board>:
+
+
+@ initialise the discovery board I/O (just outputs: inputs are selected by default)
+initialise_discovery_board:
+	LDR R10, =GPIOE 	@ load the address of the GPIOE register into R0
+ 8000256:	f8df a018 	ldr.w	sl, [pc, #24]	; 8000270 <initialise_discovery_board+0x1a>
+	LDR R11, =0x5555  @ load the binary value of 01 (OUTPUT) for each port in the upper two bytes
+ 800025a:	f245 5b55 	movw	fp, #21845	; 0x5555
+					 @ as 0x5555 = 01010101 01010101
+	STRH R11, [R10, #MODER + 2]   @ store the new register values in the top half word representing
+ 800025e:	f8aa b002 	strh.w	fp, [sl, #2]
+								@ the MODER settings for pe8-15
+	BX LR @ return from function call
+ 8000262:	4770      	bx	lr
+	LDR R3, =led_numbers			@load address for led numbers that are outputted through GPIO to LEDs
+ 8000264:	20000028 	.word	0x20000028
+	LDR R4, =test_string			@load address for the string
+ 8000268:	2000001b 	.word	0x2000001b
+	LDR R1, =map_array				@load address for map into R1
+ 800026c:	20000000 	.word	0x20000000
+	LDR R10, =GPIOE  				@ load the address of the GPIOE register into R0
+ 8000270:	48001000 	.word	0x48001000
+	LDR R6, =0x006FF00F
+ 8000274:	006ff00f 	.word	0x006ff00f
+	LDR R10, =RCC  @ load the address of the RCC address boundary (for enabling the IO clock)
+ 8000278:	40021000 	.word	0x40021000
+
+0800027c <main>:
+#endif
+
+extern void assembly_function();
+
+int main(void)
+{
+ 800027c:	b580      	push	{r7, lr}
+ 800027e:	af00      	add	r7, sp, #0
+	assembly_function();
+ 8000280:	f7ff ffa8 	bl	80001d4 <assembly_function>
+    /* Loop forever */
+	for(;;);
+ 8000284:	e7fe      	b.n	8000284 <main+0x8>
+	...
+
+08000288 <Reset_Handler>:
+
+  .section .text.Reset_Handler
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+  ldr   r0, =_estack
+ 8000288:	480d      	ldr	r0, [pc, #52]	; (80002c0 <LoopForever+0x2>)
+  mov   sp, r0          /* set stack pointer */
+ 800028a:	4685      	mov	sp, r0
+/* Call the clock system initialization function.*/
+  bl  SystemInit
+ 800028c:	f3af 8000 	nop.w
+
+/* Copy the data segment initializers from flash to SRAM */
+  ldr r0, =_sdata
+ 8000290:	480c      	ldr	r0, [pc, #48]	; (80002c4 <LoopForever+0x6>)
+  ldr r1, =_edata
+ 8000292:	490d      	ldr	r1, [pc, #52]	; (80002c8 <LoopForever+0xa>)
+  ldr r2, =_sidata
+ 8000294:	4a0d      	ldr	r2, [pc, #52]	; (80002cc <LoopForever+0xe>)
+  movs r3, #0
+ 8000296:	2300      	movs	r3, #0
+  b LoopCopyDataInit
+ 8000298:	e002      	b.n	80002a0 <LoopCopyDataInit>
+
+0800029a <CopyDataInit>:
+
+CopyDataInit:
+  ldr r4, [r2, r3]
+ 800029a:	58d4      	ldr	r4, [r2, r3]
+  str r4, [r0, r3]
+ 800029c:	50c4      	str	r4, [r0, r3]
+  adds r3, r3, #4
+ 800029e:	3304      	adds	r3, #4
+
+080002a0 <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  adds r4, r0, r3
+ 80002a0:	18c4      	adds	r4, r0, r3
+  cmp r4, r1
+ 80002a2:	428c      	cmp	r4, r1
+  bcc CopyDataInit
+ 80002a4:	d3f9      	bcc.n	800029a <CopyDataInit>
+
+/* Zero fill the bss segment. */
+  ldr r2, =_sbss
+ 80002a6:	4a0a      	ldr	r2, [pc, #40]	; (80002d0 <LoopForever+0x12>)
+  ldr r4, =_ebss
+ 80002a8:	4c0a      	ldr	r4, [pc, #40]	; (80002d4 <LoopForever+0x16>)
+  movs r3, #0
+ 80002aa:	2300      	movs	r3, #0
+  b LoopFillZerobss
+ 80002ac:	e001      	b.n	80002b2 <LoopFillZerobss>
+
+080002ae <FillZerobss>:
+
+FillZerobss:
+  str  r3, [r2]
+ 80002ae:	6013      	str	r3, [r2, #0]
+  adds r2, r2, #4
+ 80002b0:	3204      	adds	r2, #4
+
+080002b2 <LoopFillZerobss>:
+
+LoopFillZerobss:
+  cmp r2, r4
+ 80002b2:	42a2      	cmp	r2, r4
+  bcc FillZerobss
+ 80002b4:	d3fb      	bcc.n	80002ae <FillZerobss>
+
+/* Call static constructors */
+  bl __libc_init_array
+ 80002b6:	f000 f811 	bl	80002dc <__libc_init_array>
+/* Call the application's entry point.*/
+  bl main
+ 80002ba:	f7ff ffdf 	bl	800027c <main>
+
+080002be <LoopForever>:
+
+LoopForever:
+  b LoopForever
+ 80002be:	e7fe      	b.n	80002be <LoopForever>
+  ldr   r0, =_estack
+ 80002c0:	2000a000 	.word	0x2000a000
+  ldr r0, =_sdata
+ 80002c4:	20000000 	.word	0x20000000
+  ldr r1, =_edata
+ 80002c8:	20000044 	.word	0x20000044
+  ldr r2, =_sidata
+ 80002cc:	08000344 	.word	0x08000344
+  ldr r2, =_sbss
+ 80002d0:	20000044 	.word	0x20000044
+  ldr r4, =_ebss
+ 80002d4:	20000060 	.word	0x20000060
+
+080002d8 <ADC1_2_IRQHandler>:
+ * @retval : None
+*/
+  .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
+ 80002d8:	e7fe      	b.n	80002d8 <ADC1_2_IRQHandler>
+	...
+
+080002dc <__libc_init_array>:
+ 80002dc:	b570      	push	{r4, r5, r6, lr}
+ 80002de:	4d0d      	ldr	r5, [pc, #52]	; (8000314 <__libc_init_array+0x38>)
+ 80002e0:	4c0d      	ldr	r4, [pc, #52]	; (8000318 <__libc_init_array+0x3c>)
+ 80002e2:	1b64      	subs	r4, r4, r5
+ 80002e4:	10a4      	asrs	r4, r4, #2
+ 80002e6:	2600      	movs	r6, #0
+ 80002e8:	42a6      	cmp	r6, r4
+ 80002ea:	d109      	bne.n	8000300 <__libc_init_array+0x24>
+ 80002ec:	4d0b      	ldr	r5, [pc, #44]	; (800031c <__libc_init_array+0x40>)
+ 80002ee:	4c0c      	ldr	r4, [pc, #48]	; (8000320 <__libc_init_array+0x44>)
+ 80002f0:	f000 f818 	bl	8000324 <_init>
+ 80002f4:	1b64      	subs	r4, r4, r5
+ 80002f6:	10a4      	asrs	r4, r4, #2
+ 80002f8:	2600      	movs	r6, #0
+ 80002fa:	42a6      	cmp	r6, r4
+ 80002fc:	d105      	bne.n	800030a <__libc_init_array+0x2e>
+ 80002fe:	bd70      	pop	{r4, r5, r6, pc}
+ 8000300:	f855 3b04 	ldr.w	r3, [r5], #4
+ 8000304:	4798      	blx	r3
+ 8000306:	3601      	adds	r6, #1
+ 8000308:	e7ee      	b.n	80002e8 <__libc_init_array+0xc>
+ 800030a:	f855 3b04 	ldr.w	r3, [r5], #4
+ 800030e:	4798      	blx	r3
+ 8000310:	3601      	adds	r6, #1
+ 8000312:	e7f2      	b.n	80002fa <__libc_init_array+0x1e>
+ 8000314:	0800033c 	.word	0x0800033c
+ 8000318:	0800033c 	.word	0x0800033c
+ 800031c:	0800033c 	.word	0x0800033c
+ 8000320:	08000340 	.word	0x08000340
+
+08000324 <_init>:
+ 8000324:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000326:	bf00      	nop
+ 8000328:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800032a:	bc08      	pop	{r3}
+ 800032c:	469e      	mov	lr, r3
+ 800032e:	4770      	bx	lr
+
+08000330 <_fini>:
+ 8000330:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000332:	bf00      	nop
+ 8000334:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8000336:	bc08      	pop	{r3}
+ 8000338:	469e      	mov	lr, r3
+ 800033a:	4770      	bx	lr
