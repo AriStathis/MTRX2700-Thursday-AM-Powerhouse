@@ -6,15 +6,19 @@ Ari Stathis
   - Delegator for tasks
   - Digital I/O
   - Timers
+  - Integration
   
 Jason Zhou 
   - Serial communication
+  - Integration
 
 Kevin Xu 
   - Serial communication
+  - Integration
   
 Viswada Varri 
   - Timers 
+  - Integration
 
 References for Marking:
   - PDF of flow diagrams for each module in each task for ease of explaination on presentation day
