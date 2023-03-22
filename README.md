@@ -35,7 +35,9 @@ Instructions for the user:
     - Refer to flow diagrams module for ease of explaination
     
   Task 3:
-    - To be completed by Jason and Kevin 
+    - Debug, open SFRs-USART1-TDR and run to view transmit of the string.
+    - Connect two STM32F303's ground and PC4(T board) to PC11(R board), Debug R board and run. Then start running A board to transmit the string to the R board. Open memory browser of R board to check if the string is in the correct address.
+    - Debug, open SFRs-USART1-TDR (R board) to view the transmit of the string. 
    
   Task 4:
     - Run each program
